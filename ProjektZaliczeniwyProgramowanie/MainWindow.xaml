@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ObslugaHurtowniiApp"
         mc:Ignorable="d"
-        Title="System Hurt'em" Height="450" Width="800" Background="#329fc9" ResizeMode="NoResize">
+        Title="System Hurt'em" Height="450" Width="800" Background="DodgerBlue" ResizeMode="NoResize">
     <Grid x:Name="mainWindow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -20,29 +20,90 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Name="lblMenu" Content="Menu" Background="DimGray" Foreground="White" HorizontalContentAlignment="Center"
+        <Rectangle Grid.Column="0" Grid.Row="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="DarkKhaki" Offset="0" />
+                    <GradientStop Color="DarkKhaki" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Column="0" Grid.Row="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="DarkKhaki" Offset="0" />
+                    <GradientStop Color="DarkKhaki" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Column="0" Grid.Row="3">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="DarkKhaki" Offset="0" />
+                    <GradientStop Color="DarkKhaki" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Column="0" Grid.Row="4">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="DarkKhaki" Offset="0" />
+                    <GradientStop Color="DarkKhaki" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Column="0" Grid.Row="5">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="DarkKhaki" Offset="0" />
+                    <GradientStop Color="DarkKhaki" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Label Name="lblMenu" Content="Menu" Background="Olive" Foreground="White" HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center" FontStretch="Medium" Grid.Column="0" Grid.Row="0">
         </Label>
 
-        <Label Name="lblDateTime" Content="Data i godzina" Background="DimGray" Foreground="White" Grid.Column="1" Grid.Row="0"
+        <Label Name="lblDateTime" Content="Data i godzina" Background="RoyalBlue" Foreground="White" Grid.Column="1" Grid.Row="0"
                HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0, 0, 20, 00">
-
         </Label>
 
-        <Button Name="btnNewOrder" Background="DimGray" Foreground="White" Margin="20" Content="Zamówienia" FontSize="15"
-                FontWeight="Bold" Cursor="Hand" Grid.Row="2" Click="BtnNewOrder_Click">
-        </Button>
-
-        <Button Name="btnProducts" Background="DimGray" Foreground="White" Margin="20" Content="Produkty" FontSize="15"
+        <Button Name="btnProducts" Background="DimGray" Foreground="White" Margin="20" Content="Produkty" FontSize="12"
                 FontWeight="Bold" Cursor="Hand" Grid.Row="1" Click="BtnProducts_Click">
         </Button>
 
-        <Button Name="btnStorage" Background="DimGray" Foreground="White" Margin="20" Content="Magazyn" FontSize="15"
+        <Button Name="btnOrders" Background="DimGray" Foreground="White" Margin="20" Content="Zamówienia" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="2" Click="BtnOrders_Click">
+        </Button>
+
+        <Button Name="btnStorage" Background="DimGray" Foreground="White" Margin="20" Content="Magazyn" FontSize="12"
                 FontWeight="Bold" Cursor="Hand" Grid.Row="3" Click="BtnStorage_Click">
         </Button>
 
-        <Button Name="btnExitApp" Background="DimGray" Foreground="White" Margin="20" Content="Wyjście" FontSize="15"
+        <Button Name="btnExitApp" Background="DimGray" Foreground="White" Margin="20" Content="Wyjście" FontSize="12"
                 FontWeight="Bold" Cursor="Hand" Grid.Row="5" Click="BtnExitApp_Click">
         </Button>
+
+        <Button Name="btnAddNewProduct" Background="DimGray" Foreground="White" Margin="20" Content="Dodaj produkt" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="1" IsEnabled="False" Visibility="Hidden" Click="BtnAddNewProduct_Click">
+        </Button>
+
+        <Button Name="btnDeleteProduct" Background="DimGray" Foreground="White" Margin="20" Content="Usuń produkt" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="2" IsEnabled="False" Visibility="Hidden" Click="BtnDeleteProduct_Click">
+        </Button>
+
+        <Button Name="btnShowAllProducts" Background="DimGray" Foreground="White" Margin="20" Content="Baza produktów" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="3" IsEnabled="False" Visibility="Hidden" Click="BtnShowAllProducts_Click">
+        </Button>
+
+        <Button Name="btnBack" Background="DimGray" Foreground="White" Margin="20" Content="Powrót" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="5" IsEnabled="False" Visibility="Hidden" Click="BtnBack_Click">
+        </Button>
+
     </Grid>
 </Window>
