@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3e4c23724ed346379b928b9638782dc0" Name="Diagram1">
+        <EntityTypeShape EntityType="HurtowniaDBModel.Carrier" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HurtowniaDBModel.Order" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="HurtowniaDBModel.Product" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HurtowniaDBModel.Recipient" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HurtowniaDBModel.Storage" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="HurtowniaDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="HurtowniaDBModel.FK_Order_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="HurtowniaDBModel.FK_Order_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="HurtowniaDBModel.FK_Order_Recipient" ManuallyRouted="false" />
+        <AssociationConnector Association="HurtowniaDBModel.FK_Storage_Product1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
