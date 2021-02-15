@@ -14,8 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Data.Entity.Migrations;
+using ProjektZaliczeniowyProgramowanie;
 
-namespace ProjektZaliczeniowyProgramowanie
+namespace SystemHurtowni
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
@@ -50,7 +51,14 @@ namespace ProjektZaliczeniowyProgramowanie
 
         private void BtnOrders_Click(object sender, RoutedEventArgs e)
         {
+            btnProducts.IsEnabled = false; btnProducts.Visibility = Visibility.Hidden;
+            btnOrders.IsEnabled = false; btnOrders.Visibility = Visibility.Hidden;
+            btnStorage.IsEnabled = false; btnStorage.Visibility = Visibility.Hidden;
+            btnExitApp.IsEnabled = false; btnExitApp.Visibility = Visibility.Hidden;
 
+            btnNewOrder.IsEnabled = true; btnNewOrder.Visibility = Visibility.Visible;
+            btnActualOrders.IsEnabled = true; btnActualOrders.Visibility = Visibility.Visible;
+            btnBackOrders.IsEnabled = true; btnBackOrders.Visibility = Visibility.Visible;
         }
 
         private void BtnStorage_Click(object sender, RoutedEventArgs e)
@@ -64,7 +72,9 @@ namespace ProjektZaliczeniowyProgramowanie
             btnShowStorageProduct.IsEnabled = true; btnShowStorageProduct.Visibility = Visibility.Visible;
             btnBackStorage.IsEnabled = true; btnBackStorage.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// Funkcja pokazująca aktualny czas w programie.
+        /// </summary>
         public void UpdateDateTime()
         {
             DispatcherTimer clock = new DispatcherTimer();
@@ -73,7 +83,9 @@ namespace ProjektZaliczeniowyProgramowanie
             clock.Tick += TimerTick;
             clock.Start();
         }
-
+        /// <summary>
+        /// Funkcja Licząca aktualną datę i godzinę
+        /// </summary>
         private void TimerTick(object sender, EventArgs e)
         {
             string day = DateTime.Now.ToString("dddd");
@@ -507,6 +519,155 @@ namespace ProjektZaliczeniowyProgramowanie
             btnBackStorage.IsEnabled = false; btnBackStorage.Visibility = Visibility.Hidden;
         }
 
+        private void BtnNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            NewOrderWindow newOrderWindow = new NewOrderWindow();
+            newOrderWindow.Show();
+        }
+
+        private void BtnActualOrders_Click(object sender, RoutedEventArgs e)
+        {
+            StackPanel sp = new StackPanel
+            {
+                Height = 300,
+                Background = Brushes.Gray,
+                Margin = new Thickness(40, -40, 40, -160),
+            };
+
+            Label labelOrderList = new Label
+            {
+                Content = "Oczekujące na realizację zamówienia",
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Background = Brushes.LightGray,
+            };
+
+            Label labelInfoOrder = new Label
+            {
+                Content = "Nazwa produktu | Ilość | Data zamówienia | Data odbioru | Przewoźnik | Odbiorca | Adres | Miasto",
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Background = Brushes.LightGray,
+                FontWeight = FontWeights.Bold,
+                FontSize = 11,
+            };
+
+            Label labelOrderPrice = new Label
+            {
+                Content = "Cena wybranego zamówienia",
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Background = Brushes.LightGray,
+                FontWeight = FontWeights.Bold,
+                Width = 200,
+                Margin = new Thickness(0, 10, 0, 0),
+            };
+
+            TextBox textBoxOrderPrice = new TextBox
+            {
+                IsReadOnly = true,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Width = 200,
+                Height = 30,
+            };
+
+            ComboBox comboBoxOrderList = new ComboBox
+            {
+                MaxDropDownHeight = 100,
+                Margin = new Thickness(0, 10, 0, 0),
+                FontSize = 10,
+            };
+
+            using (var context = new BazaDanychHurtowniaEntities())
+            {
+                ComboBoxItem comboBoxOrder = null;
+                var orders = context.Order;
+                foreach (var item in orders)
+                {
+                    var product = context.Product.Single(x => x.ID == item.ProductID);
+                    var carrier = context.Carrier.Single(x => x.ID == item.CarrierID);
+                    var reciepient = context.Recipient.Single(x => x.ID == item.RecipientID);
+
+                    comboBoxOrder = new ComboBoxItem
+                    {
+                        Content = $"{product.Name} | {item.Quantity} | {item.OrderDate.ToShortDateString()}" +
+                        $" | {item.ReciveDate.ToShortDateString()} | {carrier.Name} | {reciepient.Name} | {item.Adress} | {item.City}",
+                        Background = Brushes.PaleTurquoise,
+                    };
+
+                    comboBoxOrderList.Items.Add(comboBoxOrder);
+                }
+            }
+
+            Button buttonSubmitOrder = new Button
+            {
+                Content = "Realizacja",
+                Padding = new Thickness(10),
+                Width = 100,
+                Height = 40,
+                FontWeight = FontWeights.Bold,
+                Background = Brushes.RoyalBlue,
+                Margin = new Thickness(10),
+            };
+
+            Button buttonActualOrdersBack = new Button
+            {
+                Content = "Powrót",
+                Padding = new Thickness(10),
+                Width = 100,
+                Height = 40,
+                FontWeight = FontWeights.Bold,
+                Background = Brushes.RoyalBlue,
+                Margin = new Thickness(10),
+            };
+
+            Grid.SetColumn(sp, 1);
+            Grid.SetRow(sp, 2);
+
+            sp.Children.Add(labelOrderList);
+            sp.Children.Add(labelInfoOrder);
+            sp.Children.Add(comboBoxOrderList);
+            sp.Children.Add(labelOrderPrice);
+            sp.Children.Add(textBoxOrderPrice);
+            sp.Children.Add(buttonSubmitOrder);
+            sp.Children.Add(buttonActualOrdersBack);
+
+            mainWindow.Children.Add(sp);
+            /// <summary>
+            /// Delegaty przechowywujące funkcję interaktywne dla użytkownika.
+            /// </summary>
+            comboBoxOrderList.SelectionChanged += CalculatePriceDelegate;
+            buttonSubmitOrder.Click += SubmitOrderDelegate;
+            buttonActualOrdersBack.Click += ActualOrdersCancel;
+
+            void CalculatePriceDelegate(object o, EventArgs ev)
+            {
+                CalculateFullPriceOrder(comboBoxOrderList.SelectedItem.ToString(), ref textBoxOrderPrice);
+            }
+            void SubmitOrderDelegate(object o, EventArgs ev)
+            {
+                if (comboBoxOrderList.SelectedItem != null) SubmitOrder(comboBoxOrderList.SelectedItem.ToString());
+                else ShowMessage("Nie wybrano zamówienia.", "Błąd", MessageBoxImage.Error);
+            }
+            void ActualOrdersCancel(object o, EventArgs ev) => mainWindow.Children.RemoveAt(mainWindow.Children.Count - 1);
+        }
+        private void BtnBackOrders_Click(object sender, RoutedEventArgs e)
+        {
+            btnProducts.IsEnabled = true; btnProducts.Visibility = Visibility.Visible;
+            btnOrders.IsEnabled = true; btnOrders.Visibility = Visibility.Visible;
+            btnStorage.IsEnabled = true; btnStorage.Visibility = Visibility.Visible;
+            btnExitApp.IsEnabled = true; btnExitApp.Visibility = Visibility.Visible;
+
+            btnNewOrder.IsEnabled = false; btnNewOrder.Visibility = Visibility.Hidden;
+            btnActualOrders.IsEnabled = false; btnActualOrders.Visibility = Visibility.Hidden;
+            btnBackOrders.IsEnabled = false; btnBackOrders.Visibility = Visibility.Hidden;
+        }
+        /// <summary>
+        /// Funkcja dodająca produkt do bazy danych
+        /// </summary>
+        /// <param name="name">Nazwa produktu</param>
+        /// <param name="price">Cane produktu</param>
         private void AddProduct(string name, string price)
         {
             bool isValidPrice = true;
@@ -538,7 +699,10 @@ namespace ProjektZaliczeniowyProgramowanie
                 }
             }
         }
-
+        /// <summary>
+        /// Funckja usuwająca produkt z bazdy danych
+        /// </summary>
+        /// <param name="name">Nazawa produktu</param>
         private void DeleteProduct(string name)
         {
             if (name == "")
@@ -557,6 +721,8 @@ namespace ProjektZaliczeniowyProgramowanie
                     }
                     else
                     {
+                        var p = context.Storage.Single(x => x.ProductID == product.ID);
+                        context.Storage.Remove(p);
                         context.Product.Remove(product);
                         context.SaveChanges();
                         ShowMessage("Produkt został usunięty.", "Informacja", MessageBoxImage.Information);
@@ -566,7 +732,11 @@ namespace ProjektZaliczeniowyProgramowanie
                 }
             }
         }
-
+        /// <summary>
+        /// Funkcja dodająca produkt do magazynu
+        /// </summary>
+        /// <param name="value">Wybrany produkt z magazynu</param>
+        /// <param name="s">Nazwa Produktu</param>
         private void AddStorageProduct(object value, string s)
         {
             string productName = value as string;
@@ -612,7 +782,74 @@ namespace ProjektZaliczeniowyProgramowanie
             }
             else ShowMessage("Wprowadzona ilość jest nieprawidłowa.", "Błąd", MessageBoxImage.Error);
         }
+        /// <summary>
+        /// Funkcja obliczająca wartość zamówienia
+        /// </summary>
+        /// <param name="s">Wybrany produkt z magazynu</param>
+        /// <param name="textBox">okienko ceny</param>
+        private void CalculateFullPriceOrder(string s, ref TextBox textBox)
+        {
+            string[] order = s.Substring(s.IndexOf(':') + 2).Split('|');
+            var productSelected = order[0].Trim();
+            var productQuantity = order[1].Trim();
 
+            using (var context = new BazaDanychHurtowniaEntities())
+            {
+                var product = context.Product.Single(x => x.Name == productSelected);
+                decimal fullPrice = product.Price * Convert.ToInt32(productQuantity);
+                textBox.Text = Math.Round(fullPrice, 2) + "zł";
+            }
+        }
+        /// <summary>
+        /// Funkcja Potwierdzająca złożenie zamówienia
+        /// </summary>
+        /// <param name="s">nazwa zamówienia</param>
+        private void SubmitOrder(string s)
+        {
+            string[] order = s.Substring(s.IndexOf(':') + 2).Split('|');
+            var productSelected = order[0].Trim();
+            var productQuantity = order[1].Trim();
+            var carrierName = order[4].Trim();
+            var recipientName = order[5].Trim();
+            var adressName = order[6].Trim();
+            var cityName = order[7].Trim();
+
+            using (var context = new BazaDanychHurtowniaEntities())
+            {
+                var productToOrder = context.Product.Single(x => x.Name == productSelected);
+                var storageProduct = context.Storage.Single(x => x.ProductID == productToOrder.ID);
+
+                if (storageProduct.Quantity < int.Parse(productQuantity))
+                {
+                    ShowMessage("Brak odpowiedniej ilośc produktu na magazynie do zrealizowania zamówienia.",
+                        "Błąd", MessageBoxImage.Error);
+                }
+                else
+                {
+                    var productStorageUpdate = context.Storage.Single(x => x.ProductID == productToOrder.ID);
+                    productStorageUpdate.Quantity -= int.Parse(productQuantity);
+
+                    var carrierID = context.Carrier.Single(x => x.Name == carrierName);
+                    var recipientID = context.Recipient.Single(x => x.Name == recipientName);
+
+                    int quantity = int.Parse(productQuantity);
+
+                    Order orderToDelete = context.Order.Single(x => x.ProductID == productToOrder.ID &&
+                    x.Quantity == quantity && x.CarrierID == carrierID.ID &&
+                    x.RecipientID == recipientID.ID && x.Adress == adressName && x.City == cityName);
+
+                    context.Order.Remove(orderToDelete);
+                    context.SaveChanges();
+                    ShowMessage("Zamówienie zostało wysłane pomyślnie.", "Informacja", MessageBoxImage.Information);
+                }
+            }
+        }
+        /// <summary>
+        /// Funkcja wyświetlająca informacje zwrotne dla użytkownika
+        /// </summary>
+        /// <param name="msg">Informacja</param>
+        /// <param name="name">Nazwa okna</param>
+        /// <param name="img">Ikonka</param>
         private void ShowMessage(string msg, string name, MessageBoxImage img)
         {
             MessageBox.Show(msg, name, MessageBoxButton.OK, img);

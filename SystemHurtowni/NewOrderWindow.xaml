@@ -1,0 +1,86 @@
+﻿<Window x:Class="SystemHurtowni.NewOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemHurtowni"
+        mc:Ignorable="d"
+        Title="Panel zamówienia" Height="400" Width="600" Background="MediumAquamarine" ResizeMode="NoResize">
+    <Grid x:Name="newOrderWindow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Background="MediumSeaGreen" Content="1. Informacje o produkcie" VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold">
+        </Label>
+
+        <DockPanel Grid.Row="1">
+            <Label Background="LightGray" Width="100" Content="Produkt" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <ComboBox Name="comboBoxProducts" Width="200" MaxDropDownHeight="100" VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"></ComboBox>
+            <Label Background="LightGray" Width="100" Content="Ilość" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <TextBox Name="textBoxProductQuantity" Width="200" FontSize="16" VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" FontWeight="Bold" MaxLength="10"></TextBox>
+        </DockPanel>
+
+        <Label Background="MediumSeaGreen" Content="2. Informacje o czasie realizacji" VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center" Grid.Row="2" FontSize="12" FontWeight="Bold">
+        </Label>
+
+        <DockPanel Grid.Row="3">
+            <Label Background="LightGray" Width="100" Content="Data zamówienia" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <DatePicker Name="datePickerOrderDate" Width="200"></DatePicker>
+            <Label Background="LightGray" Width="100" Content="Data dostarczenia" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <DatePicker Name="datePickerReciveDate" Width="190"></DatePicker>
+        </DockPanel>
+
+        <Label Background="MediumSeaGreen" Content="3. Informacje o podmiotach" VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center" Grid.Row="4" FontSize="12" FontWeight="Bold">
+        </Label>
+
+        <DockPanel Grid.Row="5">
+            <Label Background="LightGray" Width="100" Content="Przewoźnik" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <ComboBox Name="comboBoxCarrier" Width="200" MaxDropDownHeight="100" VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"></ComboBox>
+            <Label Background="LightGray" Width="100" Content="Odbiorca" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <ComboBox Name="comboBoxRecipient" Width="190" MaxDropDownHeight="100" VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"></ComboBox>
+        </DockPanel>
+
+        <Label Background="MediumSeaGreen" Content="4. Informacje o miejscu dostawy" VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center" Grid.Row="6" FontSize="12" FontWeight="Bold">
+        </Label>
+
+        <DockPanel Grid.Row="7">
+            <Label Background="LightGray" Width="100" Content="Ulica" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <TextBox Name="textBoxAdress" Width="200" FontSize="15" VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" FontWeight="Bold"></TextBox>
+            <Label Background="LightGray" Width="100" Content="Miasto" VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" FontSize="10"></Label>
+            <TextBox Name="textBoxCity" Width="200" FontSize="15" VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center" FontWeight="Bold" MaxLength="30"></TextBox>
+        </DockPanel>
+        <Button Name="btnNewOrderExit" Grid.Row="8" Width="100" Height="40" Margin="0, 0, 120, 0" Content="Wyjdź"
+                FontWeight="Bold" Background="MediumSeaGreen" Foreground="White" FontSize="16" Cursor="Hand"
+                Click="BtnNewOrderExit_Click"></Button>
+        <Button Name="btnNewOrderApply" Grid.Row="8" Width="100" Height="40" Margin="120, 0, 0, 0" Content="Akceptuj"
+                FontWeight="Bold" Background="MediumSeaGreen" Foreground="White" FontSize="16" Cursor="Hand"
+                Click="BtnNewOrderApply_Click"></Button>
+    </Grid>
+</Window>

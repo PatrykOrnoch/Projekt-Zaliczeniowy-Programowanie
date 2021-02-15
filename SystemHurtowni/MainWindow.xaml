@@ -1,9 +1,9 @@
-﻿<Window x:Class="ProjektZaliczeniowyProgramowanie.MainWindow"
+﻿<Window x:Class="SystemHurtowni.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProjektZaliczeniowyProgramowanie"
+        xmlns:local="clr-namespace:SystemHurtowni"
         mc:Ignorable="d"
         Title="System Hurt'em" Height="450" Width="800" Background="DodgerBlue" ResizeMode="NoResize">
     <Grid x:Name="mainWindow">
@@ -77,12 +77,12 @@
                 FontWeight="Bold" Cursor="Hand" Grid.Row="1" Click="BtnProducts_Click">
         </Button>
 
-        <Button Name="btnOrders" Background="DimGray" Foreground="White" Margin="20" Content="Zamówienia" FontSize="12"
-                FontWeight="Bold" Cursor="Hand" Grid.Row="2" Click="BtnOrders_Click">
+        <Button Name="btnOrders" Background="MediumSeaGreen" Foreground="White" Margin="20" Content="Zamówienia" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="3" Click="BtnOrders_Click">
         </Button>
 
         <Button Name="btnStorage" Background="DimGray" Foreground="White" Margin="20" Content="Magazyn" FontSize="12"
-                FontWeight="Bold" Cursor="Hand" Grid.Row="3" Click="BtnStorage_Click">
+                FontWeight="Bold" Cursor="Hand" Grid.Row="2" Click="BtnStorage_Click">
         </Button>
 
         <Button Name="btnExitApp" Background="DimGray" Foreground="White" Margin="20" Content="Wyjście" FontSize="12"
@@ -115,6 +115,18 @@
 
         <Button Name="btnBackStorage" Background="DimGray" Foreground="White" Margin="20" Content="Powrót" FontSize="12"
                 FontWeight="Bold" Cursor="Hand" Grid.Row="5" IsEnabled="False" Visibility="Hidden" Click="BtnBackStorage_Click">
+        </Button>
+
+        <Button Name="btnNewOrder" Background="DimGray" Foreground="White" Margin="20" Content="Nowe zamówienie" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="1" IsEnabled="False" Visibility="Hidden" Click="BtnNewOrder_Click">
+        </Button>
+
+        <Button Name="btnActualOrders" Background="DimGray" Foreground="White" Margin="20" Content="Aktualne zamówienia" FontSize="10"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="2" IsEnabled="False" Visibility="Hidden" Click="BtnActualOrders_Click">
+        </Button>
+
+        <Button Name="btnBackOrders" Background="DimGray" Foreground="White" Margin="20" Content="Powrót" FontSize="12"
+                FontWeight="Bold" Cursor="Hand" Grid.Row="5" IsEnabled="False" Visibility="Hidden" Click="BtnBackOrders_Click">
         </Button>
     </Grid>
 </Window>
